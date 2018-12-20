@@ -130,30 +130,31 @@ A: There’s no reason why you can’t as long as it’s trained for FASTER R-CN
 Once the program is executed, the user goes to the homepage. From here, they can either login
 or register for an account. If the user registers for an account, they must fill out the form
 correctly. The data then gets stored in the MSSQL DB under the User_Account_Info_60499 table.
-<br />
 
-The user goes to the homepage
-From there, they can either login with there credentials or register for an account
-If register
-User fills out registration form
-Data added into the Database
-Goes to login page
-If login
-Validate credentials, display error messages if needed
-Go to portal
-In the portal, the user can view the images, details regarding the image and change account information
-Features
-User registration/login
-View images captured
-View details of the image (coordinates of where it was taken, item name, match percent)
-Change password
+  The user then logs in with valid credentials. The code in login.php will check if the credentials
+  are valid, then take you to the portal (portal.php). If the credentials are invalid, the program will show an
+  error message. Once you login, your full name, username, password, and accountID are stored in local
+  storage for later use.
 
-Code Explained High Level + Screenshots
-index
+  In the portal, the user views a logged-in navigation bar (logged_in_theme.php). The user can
+  view details of the captured image (coordinates of where it was taken, item name, match percent).
+  The code will select the information stored in the JSONTags_60499 table based on your accountID.
+  It returns JSON data which is parsed and displayed into a table
+
+  In the portal, the user can view the images that are captured. The images are stored in the
+  Account_Images_60499 table. The code selects the images based on accountID. The images are
+  then displayed into a table.
+
+  In the logged-in navigation bar, the user can view their account information. It shows their
+  username and full name in table. This is displayed from local storage. It also has an option
+  to change the password (change_password.php)
+
+
+
+
+## Screenshots
+
 - Home page for the app
-- Shows the project details (overview, technology stack)
-- Login/Registration buttons
-
 ![alt text](Figure-Images/Figure3-2.jpg)
 
 
