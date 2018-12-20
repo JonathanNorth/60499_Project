@@ -33,17 +33,14 @@ Application. To start you’ll need to create an Azure subscription at
 (https://docs.microsoft.com/en-us/cognitive-toolkit/setup-windows-binary-script)
 3.    Next open Anaconda and run the following command pip install azure-cli
 Azure CLI is Microsoft’s command-line tool for managing Azure resources. We will be using it to deploy and manage our web application
-az
- login
-.
-
-
-4.    Now run the following command You will be prompted for your Azure account credentials, however, keep in mind that sometimes it takes a few minutes for the prompt to appear.
+4.    Now run the following command ```az login```. You will be prompted for your Azure account credentials, however, keep in mind that sometimes it takes a few minutes for the prompt to appear.
 5.    Now we’re going to set up variable names in our environment as they’ll be used throughout the next couple of steps. Although not required it is highly recommended as this will avoid errors and allow you to copy and paste the commands with no alterations. Run the following commands:
-a.    set uname=[username]
-b.    set pass=[password]
-c.     set appn = [web app name]
-d.    set resgname = [resource group name]
+```
+set uname=[username] 
+set pass=[password]
+set appn = [web app name]
+set resgname = [resource group name]
+```
 Replace all instances of [] with whatever you wish. I recommend making your resource group name [web app name]_resource_group. I.e. If
 appn=60499Project then resgname=60499Project_Resource_Group
 az
