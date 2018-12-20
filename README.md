@@ -3,6 +3,7 @@
 ## Project Goals
 The main goal of the project is to develop our programming skills and learn new technologies. Using our newly acquired skills we developed software that processes images and “tags” them. The images and tags are then stored in a database where the information is displayed to the end user for interpretation. This paper will explain the technologies chosen, how they work and why they were chosen. By the end you should understand the overall architecture of the project and how to make additions to it yourself.
 
+# Back-End By Jonathan North
 ## Overall Architecture
 The high-level architecture is very simple for this project, see figure 1.1. 
 
@@ -104,14 +105,14 @@ A: Follow the instructions on this link. Note that you may need to scroll down a
 Q: Can I use somebody else’s model?
 A: There’s no reason why you can’t as long as it’s trained for FASTER R-CNN. Here’s an example of a model you can use. Once you have a model add it to the CNTKMODELS folder. If you wish to only use that model remove the current model and add yours using the exact same name. You can have both files in the folder however you’ll need to make an entry in config.py with the path and name and make configuration changes to all the files mentioned in this document.
 
-Front End
-Technologies
-PHP
-JavaScript
-HTML 
-CSS
+# Front-End By Rahul Sharma
+## Technologies
+- PHP
+- JavaScript
+- HTML 
+- CSS
 
-Flow 
+## Flow 
 
 The user goes to the homepage 
 From there, they can either login with there credentials or register for an account
