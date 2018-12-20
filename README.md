@@ -15,8 +15,10 @@ The bottom portion of figure 1.1 shows the user setting up a device, this can be
 After an image has been processed two objects will be created. The first being the same image created however, the image will have boxes around identified objects within an image, see figure 2.1.  Each object will have a corresponding colour. The second object after processing is the tags. To accompany the image the Web App will also create a JSON file which will provide more information of the “boxes” from the new image, see figure 2.2. For each object identified a JSON object called “tags” will be created with the following properties. “bbox” represents the four points of the “box” that surround an identified object. “label” provides the user with what object our image processing thinks it has identified. “Score” gives a value from 0 to 1 which represents the likelihood that the label is correct. 1 being the most likely and 0 being unlikely. Generally, the algorithm won’t identify objects that are far below 0.5.
 
 ### Figure 2.1
+![alt text](Figure-Images/Figure1-1.jpg)
 
 ### Figure 2.2
+![alt text](Figure-Images/Figure1-1.jpg)
 
 ## Web Application Service
 To start, we will discuss the Web App hosted on Microsoft’s Azure. If you’re not familiar with Microsoft’s cloud based platform a good starting point is the following link https://docs.microsoft.com/en-us/azure/architecture/cloud-adoption/getting-started/what-isazure.
