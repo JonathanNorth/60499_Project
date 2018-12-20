@@ -209,7 +209,6 @@ to view his/her information (username and full name).
 
 
 ## How to config
-In connect.php, change the values of server, database, user, and password to make it work with your database
-The code accesses the database by using pdo in PHP since we used the MSSQL server.
-This implementation ran the code on the local php server on your computer
-gi
+In connect.php, change the values of server, database, user, and password to make it work with your database.
+The code accesses the database by using pdo(lightweight interface for accessing databases in PHP) since we used the MSSQL server.
+This implementation ran the code on the local php server on your computer.
