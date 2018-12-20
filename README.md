@@ -30,11 +30,15 @@ One of the reasons for using Azure over Amazon’s AWS is that Microsoft has a v
 1.    Now that you know how CNTK and Faster-RCNN work now we can get into the Web
 Application. To start you’ll need to create an Azure subscription at
 (https://azure.microsoft.com/en-us/free/). If you’re a student, then you’ll get $200 worth of credits which will be more than enough to pay for the base service.  First you should download the content from the repository () and unzip to some folder on your computer.
+
 2.    Step 2 requires you to set up Python, it’s environment and the dependencies by CNTK on your local Windows machine. Luckily Microsoft provides us with the following tutorial
 (https://docs.microsoft.com/en-us/cognitive-toolkit/setup-windows-binary-script)
+
 3.    Next open Anaconda and run the following command pip install azure-cli
 Azure CLI is Microsoft’s command-line tool for managing Azure resources. We will be using it to deploy and manage our web application
+
 4.    Now run the following command ```az login```. You will be prompted for your Azure account credentials, however, keep in mind that sometimes it takes a few minutes for the prompt to appear.
+
 5.    Now we’re going to set up variable names in our environment as they’ll be used throughout the next couple of steps. Although not required it is highly recommended as this will avoid errors and allow you to copy and paste the commands with no alterations. Run the following commands:
 ```
 set uname=[username] 
@@ -46,19 +50,24 @@ Replace all instances of [] with whatever you wish. I recommend making your reso
 appn=60499Project then resgname=60499Project_Resource_Group
 
 6. ```az webapp deployment user set –user-name %uname% --password %pass%``` This command will allow us to deploy our code to Azure
+
 7. Next lets set up a resource group. ```az group create –location eastus –name %rgname%``` Resource groups allows us to manage all aspects of a web app as one entity. For more information please see [here](https://docs.microsoft.com/en-us/azure/architecture/cloud-adoption/getting-started/azure-resource-access)
+
 8.    Now create an Azure App Service Plan and an Azure Web App. For more information about these services please see here and here. Run the following commands:
 ```
     Az appservice plan create –name %appn% --resource-group %rgname% --sku S1
     Az webapp create –name %appn% --resource-group %rgname% --plan %apppn%
 ```
+
 9.    By default, web apps only support Python 2.7 & 3.4 but we require 3.5. Therefore, we need to use an extension in our web application environment. To do so go to the Azure Portal at http://www.portal.azure.com and log in using the credentials during step 1. In the left side bar choose App Services and select the web app that you’ve created this will be the main page to configure and monitor your web app. You’ll see a new column with the first entry being “Overview”. In the search bar above it type the following “extension” and select the option “Extensions”. There should be no extensions installed at this time. Choose Add, then under choose extension select “Python 3.5.4 x64”. Accept terms and conditions then you OK. You should get a message that it’s being installed and may take a few minutes.
+
 10.  Now in your Python Environment run the following command 
 ```
 az webapp deployment source config-local-git –name %appn% --resource-group %rgname% --query url –output tsv
 ```
 This command will output the URL of your web application. It should look something like this 
 ```https://xxx@yyyyyyyy.scm.azurewebsites.net/zzzzzz.git``` Make sure to copy this website down as it’ll be used in a later step.
+
 11.  Run the following commands
 ```
 Git init
@@ -68,29 +77,31 @@ Git commit -m “init”
 Git push azure master
 ```
 There’s a script in the repo (deploy.cmd) that will install all the required dependencies from the requirements.txt file.
+
 12.  You’re all done.  In the Azure Portal restart your application. Wait 5 minutes and you should see the following web page.
 
 ## How does the Web App work?
 The web application is written in Python and uses the microframework Flask. We chose Flask as it’s less bloated than Django and therefore can be picked up much more quickly. Since we didn’t want to spend a lot of time learning a framework it was the obvious choice. To look at the files you can either look at the repository you download, or you can view the files from the Web App itself. In the Azure Portal and the App Service you should be able to find an option called “Advanced Tools”, if not use the search bar. Select “Go”, this should bring up a new tab which gives some details about the environment. Select the dropdown “Debug Console” then CMD. This will pull up the command prompt where your web app is being held. Feel free to use the command prompt or the file navigator on top to go through the files. Under the directory D:\home\site\wwwroot\ you will file all the files from the repository you downloaded. The most important files are “app.py”, “config.py”,”evaluate.py” and “web.config”.
  
+### Important Files
  
- 
- 
- 
-### Config.py
+#### Config.py
 This file is very important as it sets the variable names and values that will be used throughout our program. These are variables the will set paths of certain files, file names, etc. Be careful you alter variables from this file as can be used throughout the execution of the program.
  
  
-### App.py
+#### App.py
 This is the file that gets called on startup. You can see with the “@app.route…” calls we specify what actions to take with each URL. Depending on the URL either an image or JSON will be returned. If you wish to add another route, simply use the routes as a template.
 ***Double check to make sure that that the “os.environ[‘PATH’]” variable is set correctly. Python 2.7 is installed automatically and therefore we need to add the path of the Python version that we added as an extension. The path should be “D:\home\python354x64;”*****
  
-### Evaluate.py
+#### Evaluate.py
 This is the main driving force behind the image classifier. It uses several functions and several variables from config.py to perform its task. It also uses the helper functions from cntk_helpers.py, plot_helpers.py and scripts from the utils folder. Keep in mind that most are copied from the official CNTK repository on Github.
  
-### Webconfig.py
+#### Webconfig.py
 Standard web config file. Just make sure that the paths are set correctly.
- 
+
+### Tying it all together
+
+When the web application receives a request it will first go in the App.py file and call the appropriate method based on the url used (/returntags or /returnimages). The method will then call evaluateImage() found in the file Evaluate.py. This is the method that will call most other methods and be the driving force behind evaluating an image. Once completed the method evaluateImage will output either json or a binary image (depending on the url called). The we come back to App.py which will return the output.
  
 ## Q&A:
 Q: What is a CNTK Model?
