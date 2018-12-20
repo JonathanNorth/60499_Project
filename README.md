@@ -7,7 +7,7 @@ The main goal of the project is to develop our programming skills and learn new 
 The high-level architecture is very simple for this project, see figure 1.1. 
 
 ### Figure 1.1
-![alt text](60499_Project/Figure-Images/Figure 2.1.jpeg "The top portion represents the front-end portion of the service. The user uses a web browser to make requests to a file server to the images that belong to his account. The file server then communicates with a Microsoft SQL Cloud Database, set up in Azure to retrieve user and image information.")
+![alt text](Figure-Images/Figure1-1.jpg "The top portion represents the front-end portion of the service. The user uses a web browser to make requests to a file server to the images that belong to his account. The file server then communicates with a Microsoft SQL Cloud Database, set up in Azure to retrieve user and image information.")
 
 The bottom portion of figure 1.1 shows the user setting up a device, this can be any device that’s connected to a camera and has access to the internet. The device takes a picture and sends that picture using a REST API request to our Web Service hosted in Microsoft’s Azure Cloud Service. After processing the image, it should be added to the database previously mentioned along with it’s tags.
 
