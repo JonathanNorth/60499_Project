@@ -114,6 +114,8 @@ A: There’s no reason why you can’t as long as it’s trained for FASTER R-CN
 
 ## Flow 
 
+![alt text](Figure-Images/Figure3-1.jpg)
+
 The user goes to the homepage 
 From there, they can either login with there credentials or register for an account
 If register
@@ -132,9 +134,11 @@ Change password
 
 Code Explained High Level + Screenshots
 index
-Home page for the app
-Shows the project details (overview, technology stack) 
-Login/Registration buttons
+- Home page for the app
+- Shows the project details (overview, technology stack) 
+- Login/Registration buttons
+
+![alt text](Figure-Images/Figure3-2.jpg)
 
 
 Register
@@ -142,39 +146,51 @@ user fills out form, checks for form validation
 checks database if username exists already, show the error
 if successful, show success message and redirect to login
 
+![alt text](Figure-Images/Figure3-3.jpg)
 
+![alt text](Figure-Images/Figure3-4.jpg)
 
-
-
+![alt text](Figure-Images/Figure3-5.jpg)
 
 Login
 two cases
 user registers, redirected to the login with the message 
 normal login page from clicking login in the navigation bar or index page
 invalid credentials -> JavaScript popup telling the user 
+
+![alt text](Figure-Images/Figure3-6.jpg)
+
+![alt text](Figure-Images/Figure3-7.jpg)
+
 Portal
 Includes new navigation bar for a logged in user 
 Welcome message 
 view details -> shows image information (coordinates, item name, score)
 view images -> shows images 
 
+![alt text](Figure-Images/Figure3-8.jpg)
 
 
 View Details
 
+![alt text](Figure-Images/Figure3-9.jpg)
 
 View Images
 
-
+![alt text](Figure-Images/Figure3-10.jpg)
 
 
 My Account
 shows the user there account information
 allows the user to change their password
 
+![alt text](Figure-Images/Figure3-11.jpg)
+
 account information of the user
 
+![alt text](Figure-Images/Figure3-12.jpg)
 change password
 
+![alt text](Figure-Images/Figure3-13.jpg)
 
 successfully change password
