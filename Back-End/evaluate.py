@@ -85,15 +85,15 @@ def eval_faster_rcnn(eval_model, imgPath, img_shape,
     image_input = input_variable(img_shape, dynamic_axes=[Axis.default_batch_axis()], name=feature_node_name)
     dims_input = input_variable((1,6), dynamic_axes=[Axis.default_batch_axis()], name='dims_input')
     
+    # if your model hasn't been loaded proper or in the proper place this is the line to look at. This line takes a model and loads it 
+    # in preparation for the evaluation
     try:
         frcn_eval = eval_model(image_input, dims_input)
     except:
         raise TypeError("Loading existing model from %s" % model_path)
     
-    #dims_input_const = cntk.constant([image_width, image_height, image_width, image_height, image_width, image_height], (1, 6))
     print("Plotting results from Faster R-CNN model for image.")
-    # evaluate single image
-
+    
     _, cntk_img_input, dims = load_resize_and_pad(imgPath, img_shape[2], img_shape[1])
 
     dims_input = np.array(dims, dtype=np.float32)
