@@ -1,10 +1,12 @@
 # 60499_Project
 
-<b>Project Goals</b>
+## Project Goals
+
 The main goal of the project is to develop our programming skills and learn new technologies. Using our newly acquired skills we developed software that processes images and “tags” them. The images and tags are then stored in a database where the information is displayed to the end user for interpretation. This paper will explain the technologies chosen, how they work and why they were chosen. By the end you should understand the overall architecture of the project and how to make additions to it yourself.
 
 Overall Architecture
 The high-level architecture is very simple for this project, see figure 1.1. 
+
 Figure 1.1
  
 
