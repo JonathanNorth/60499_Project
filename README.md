@@ -155,64 +155,61 @@ correctly. The data then gets stored in the MSSQL DB under the User_Account_Info
 ## Screenshots
 
 - Home page for the app
-![alt text](Figure-Images/Figure3-2.jpg)
+ ![alt text](Figure-Images/Figure3-2.jpg)
 
 
-Register
-user fills out form, checks for form validation
-checks database if username exists already, show the error
-if successful, show success message and redirect to login
+- Blank register form
 
-![alt text](Figure-Images/Figure3-3.jpg)
+  ![alt text](Figure-Images/Figure3-3.jpg)
+- The form validates input for full name, username, password, confirm password. The screenshot
+for invalid password is below.  
+  ![alt text](Figure-Images/Figure3-4.jpg)
+- The form checks if the username exists in the database. If it does, it will display an error message
+denoted by the screenshot below
+  ![alt text](Figure-Images/Figure3-5.jpg)
 
-![alt text](Figure-Images/Figure3-4.jpg)
+- After a successful registration, there is a message telling the user that the registration was successful.
+This screen only occurs after the registration.
+  ![alt text](Figure-Images/Figure3-6.jpg)
 
-![alt text](Figure-Images/Figure3-5.jpg)
+- If the login button is pressed on the index page or the navigation bar, the user is taken to the page below.
+If the login is successful, the user is redirected to the portal, if not, there will be an error message displayed.
+  ![alt text](Figure-Images/Figure3-7.jpg)
 
-Login
-two cases
-user registers, redirected to the login with the message
-normal login page from clicking login in the navigation bar or index page
-invalid credentials -> JavaScript popup telling the user
+- The portal includes information regarding the details of the image and the actual image. It also displays the
+logged-in navigation bar.
 
-![alt text](Figure-Images/Figure3-6.jpg)
-
-![alt text](Figure-Images/Figure3-7.jpg)
-
-Portal
-Includes new navigation bar for a logged in user
-Welcome message
-view details -> shows image information (coordinates, item name, score)
-view images -> shows images
-
-![alt text](Figure-Images/Figure3-8.jpg)
+  ![alt text](Figure-Images/Figure3-8.jpg)
 
 
-View Details
+- If the user pressed the View Details button, they are taken to the page below. This page shows the information regarding
+the coordinates, item name and score.
 
-![alt text](Figure-Images/Figure3-9.jpg)
+  ![alt text](Figure-Images/Figure3-9.jpg)
 
-View Images
+- If the user pressed the View Images button, they are taken to the page below. This page shows the images taken by the user.
 
-![alt text](Figure-Images/Figure3-10.jpg)
+  ![alt text](Figure-Images/Figure3-10.jpg)
 
 
-My Account
-shows the user there account information
-allows the user to change their password
+- The user can check his/her account information from the My Account link in the navigation bar. This page allows the user
+to view his/her information (username and full name).
 
-![alt text](Figure-Images/Figure3-11.jpg)
 
-account information of the user
+  ![alt text](Figure-Images/Figure3-11.jpg)
 
-![alt text](Figure-Images/Figure3-12.jpg)
-change password
+- The user can change there password as shown below.
 
-![alt text](Figure-Images/Figure3-13.jpg)
+  ![alt text](Figure-Images/Figure3-12.jpg)
 
-successfully change password
+- After a successful change, the page below is shown indicating to the user the password has been change. Else, it will show an error message.
+
+  ![alt text](Figure-Images/Figure3-13.jpg)
+
+
 
 ## How to config
 In connect.php, change the values of server, database, user, and password to make it work with your database
 The code accesses the database by using pdo in PHP since we used the MSSQL server.
 This implementation ran the code on the local php server on your computer
+gi
