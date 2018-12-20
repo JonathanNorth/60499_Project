@@ -43,49 +43,30 @@ set resgname = [resource group name]
 ```
 Replace all instances of [] with whatever you wish. I recommend making your resource group name [web app name]_resource_group. I.e. If
 appn=60499Project then resgname=60499Project_Resource_Group
-az
-webapp
- deployment user set –user-name %
-uname
-% --password %pass%
-6.    Run  this command will setup the credentials for your web application
-Run
-az
- group create –location
-eastus
- –name
-7.    Next lets set up a resource group.
-%
-rgname
-%
- For more information on resource groups please follow this link
+
+6. ```az webapp deployment user set –user-name %uname% --password %pass%``` This command will allow us to deploy our code to Azure
+7. Next lets set up a resource group. ```az group create –location eastus –name %rgname%``` Resource groups allows us to manage all aspects of a web app as one entity. For more information please see [here](https://docs.microsoft.com/en-us/azure/architecture/cloud-adoption/getting-started/azure-resource-access)
 8.    Now create an Azure App Service Plan and an Azure Web App. For more information about these services please see here and here. Run the following commands:
-a.    Az appservice plan create –name %appn% --resource-group %rgname% --sku
-S1
-b.    Az webapp create –name %appn% --resource-group %rgname% --plan %apppn%
+```
+    Az appservice plan create –name %appn% --resource-group %rgname% --sku S1
+    Az webapp create –name %appn% --resource-group %rgname% --plan %apppn%
+```
 9.    By default, web apps only support Python 2.7 & 3.4 but we require 3.5. Therefore, we need to use an extension in our web application environment. To do so go to the Azure Portal at http://www.portal.azure.com and log in using the credentials during step 1. In the left side bar choose App Services and select the web app that you’ve created this will be the main page to configure and monitor your web app. You’ll see a new column with the first entry being “Overview”. In the search bar above it type the following “extension” and select the option “Extensions”. There should be no extensions installed at this time. Choose Add, then under choose extension select “Python 3.5.4 x64”. Accept terms and conditions then you OK. You should get a message that it’s being installed and may take a few minutes.
-10.  Now in your Python Environment run the following command az webapp deployment source config-local-git –name %appn% --resource-group %rgname% --query url –output tsv
-This command will output the URL of your web application. It should look something like this “https://xxx@yyyyyyyy.scm.azurewebsites.net/zzzzzz.git” Make sure to copy this website down as it’ll be used in a later step.
+10.  Now in your Python Environment run the following command 
+```
+az webapp deployment source config-local-git –name %appn% --resource-group %rgname% --query url –output tsv
+```
+This command will output the URL of your web application. It should look something like this 
+```https://xxx@yyyyyyyy.scm.azurewebsites.net/zzzzzz.git``` Make sure to copy this website down as it’ll be used in a later step.
 11.  Run the following commands
-Git
-init
- 
-Git remote add azure
-https://xxx@yyyyyyyy.scm.azurewebsites.net/zzzzzz.git
-
-
-
-
-
-
-
-
+```
+Git init
+Git remote add azure https://xxx@yyyyyyyy.scm.azurewebsites.net/zzzzzz.git
 Git add -A
-Git commit -m “
-init
-”
+Git commit -m “init”
 Git push azure master
-There’s a script in the repo that will install all the required dependencies from the requirements.txt file.
+```
+There’s a script in the repo (deploy.cmd) that will install all the required dependencies from the requirements.txt file.
 12.  You’re all done.  In the Azure Portal restart your application. Wait 5 minutes and you should see the following web page.
 
 ## How does the Web App work?
