@@ -5,7 +5,7 @@ The main goal of the project is to develop our programming skills and learn new 
 
 # Back-End By Jonathan North
 ## Overall Architecture
-The high-level architecture is very simple for this project, see figure 1.1. 
+The high-level architecture is very simple for this project, see figure 1.1.
 
 ### Figure 1.1
 ![alt text](Figure-Images/Figure1-1.jpg "The top portion represents the front-end portion of the service. The user uses a web browser to make requests to a file server to the images that belong to his account. The file server then communicates with a Microsoft SQL Cloud Database, set up in Azure to retrieve user and image information.")
@@ -24,8 +24,8 @@ After an image has been processed two objects will be created. The first being t
 ## Web Application Service
 To start, we will discuss the Web App hosted on Microsoft’s Azure. If you’re not familiar with Microsoft’s cloud based platform a good starting point is the following link https://docs.microsoft.com/en-us/azure/architecture/cloud-adoption/getting-started/what-isazure.
 One of the reasons for using Azure over Amazon’s AWS is that Microsoft has a verbose library of deep learning algorithms which allows us to easily train our programs to recognize objects then process images quickly. The library is called Microsoft Cognitive Toolkit or CNTK (https://www.microsoft.com/en-us/cognitive-toolkit/). There’re several different algorithms provided by the library however, we will be using Faster-RCNN. If you would like to run FasterRCNN on your PC you can do so by following this guide (https://docs.microsoft.com/enus/cognitive-toolkit/Object-Detection-using-Faster-R-CNN). You will need Python 3.5, PIP and Anaconda as your Python Environment. This is a good way to see how the library itself works before we get into implementing it in a Web Application. By using Faster-RCNN we greatly improve the speed at which we can identify objects which is going to allow us to make our software more scalable. If you would like to know more about the algorithm the published paper can be found here (https://arxiv.org/pdf/1506.01497.pdf)
- 
-  
+
+
 ### Steps to deploy Web Application
 1.    Now that you know how CNTK and Faster-RCNN work now we can get into the Web
 Application. To start you’ll need to create an Azure subscription at
@@ -41,7 +41,7 @@ Azure CLI is Microsoft’s command-line tool for managing Azure resources. We wi
 
 5.    Now we’re going to set up variable names in our environment as they’ll be used throughout the next couple of steps. Although not required it is highly recommended as this will avoid errors and allow you to copy and paste the commands with no alterations. Run the following commands:
 ```
-set uname=[username] 
+set uname=[username]
 set pass=[password]
 set appn = [web app name]
 set resgname = [resource group name]
@@ -61,11 +61,11 @@ appn=60499Project then resgname=60499Project_Resource_Group
 
 9.    By default, web apps only support Python 2.7 & 3.4 but we require 3.5. Therefore, we need to use an extension in our web application environment. To do so go to the Azure Portal at http://www.portal.azure.com and log in using the credentials during step 1. In the left side bar choose App Services and select the web app that you’ve created this will be the main page to configure and monitor your web app. You’ll see a new column with the first entry being “Overview”. In the search bar above it type the following “extension” and select the option “Extensions”. There should be no extensions installed at this time. Choose Add, then under choose extension select “Python 3.5.4 x64”. Accept terms and conditions then you OK. You should get a message that it’s being installed and may take a few minutes.
 
-10.  Now in your Python Environment run the following command 
+10.  Now in your Python Environment run the following command
 ```
 az webapp deployment source config-local-git –name %appn% --resource-group %rgname% --query url –output tsv
 ```
-This command will output the URL of your web application. It should look something like this 
+This command will output the URL of your web application. It should look something like this
 ```https://xxx@yyyyyyyy.scm.azurewebsites.net/zzzzzz.git``` Make sure to copy this website down as it’ll be used in a later step.
 
 11.  Run the following commands
@@ -82,37 +82,37 @@ There’s a script in the repo (deploy.cmd) that will install all the required d
 
 ## How does the Web App work?
 The web application is written in Python and uses the microframework Flask. We chose Flask as it’s less bloated than Django and therefore can be picked up much more quickly. Since we didn’t want to spend a lot of time learning a framework it was the obvious choice. To look at the files you can either look at the repository you download, or you can view the files from the Web App itself. In the Azure Portal and the App Service you should be able to find an option called “Advanced Tools”, if not use the search bar. Select “Go”, this should bring up a new tab which gives some details about the environment. Select the dropdown “Debug Console” then CMD. This will pull up the command prompt where your web app is being held. Feel free to use the command prompt or the file navigator on top to go through the files. Under the directory D:\home\site\wwwroot\ you will file all the files from the repository you downloaded. The most important files are “app.py”, “config.py”,”evaluate.py” and “web.config”.
- 
+
 ### Important Files
- 
+
 #### Config.py
 This file is very important as it sets the variable names and values that will be used throughout our program. These are variables the will set paths of certain files, file names, etc. Be careful you alter variables from this file as can be used throughout the execution of the program.
- 
- 
+
+
 #### App.py
 This is the file that gets called on startup. You can see with the “@app.route…” calls we specify what actions to take with each URL. Depending on the URL either an image or JSON will be returned. If you wish to add another route, simply use the routes as a template.
 ***Double check to make sure that that the “os.environ[‘PATH’]” variable is set correctly. Python 2.7 is installed automatically and therefore we need to add the path of the Python version that we added as an extension. The path should be “D:\home\python354x64;”*****
- 
+
 #### Evaluate.py
 This is the main driving force behind the image classifier. It uses several functions and several variables from config.py to perform its task. It also uses the helper functions from cntk_helpers.py, plot_helpers.py and scripts from the utils folder. Keep in mind that most are copied from the official CNTK repository on Github.
- 
+
 #### Webconfig.py
 Standard web config file. Just make sure that the paths are set correctly.
 
 ### Tying it all together
 
 When the web application receives a request it will first go in the App.py file and call the appropriate method based on the url used (/returntags or /returnimages). The method will then call evaluateImage() found in the file Evaluate.py. This is the method that will call most other methods and be the driving force behind evaluating an image. Once completed the method evaluateImage will output either json or a binary image (depending on the url called). The we come back to App.py which will return the output.
- 
+
 ## Q&A:
 Q: What is a CNTK Model?
 A: It’s the file that’s used to train our deep learning algorithm (Faster R-CNN).
- 
+
 Q: What can the current model detect?
 A: The current model can detect the following: lamp, toilet, towel, sink, bathtub, tap, bed, pillow and faucet
- 
+
 Q: How can I train my own model?
 A: Follow the instructions on this link. Note that you may need to scroll down a little.
- 
+
 Q: Can I use somebody else’s model?
 A: There’s no reason why you can’t as long as it’s trained for FASTER R-CNN. Here’s an example of a model you can use. Once you have a model add it to the CNTKMODELS folder. If you wish to only use that model remove the current model and add yours using the exact same name. You can have both files in the folder however you’ll need to make an entry in config.py with the path and name and make configuration changes to all the files mentioned in this document.
 
@@ -120,40 +120,45 @@ A: There’s no reason why you can’t as long as it’s trained for FASTER R-CN
 ## Technologies
 - PHP
 - JavaScript
-- HTML 
+- HTML
 - CSS
 
-## Flow 
+## Flow
 
 ![alt text](Figure-Images/Figure3-1.jpg)
 
-The user goes to the homepage 
+Once the program is executed, the user goes to the homepage. From here, they can either login
+or register for an account. If the user registers for an account, they must fill out the form
+correctly. The data then gets stored in the MSSQL DB under the User_Account_Info_60499 table.
+<br />
+
+The user goes to the homepage
 From there, they can either login with there credentials or register for an account
 If register
 User fills out registration form
 Data added into the Database
 Goes to login page
-If login 
-Validate credentials, display error messages if needed 
+If login
+Validate credentials, display error messages if needed
 Go to portal
-In the portal, the user can view the images, details regarding the image and change account information 
+In the portal, the user can view the images, details regarding the image and change account information
 Features
-User registration/login 
+User registration/login
 View images captured
-View details of the image (coordinates of where it was taken, item name, match percent) 
-Change password 
+View details of the image (coordinates of where it was taken, item name, match percent)
+Change password
 
 Code Explained High Level + Screenshots
 index
 - Home page for the app
-- Shows the project details (overview, technology stack) 
+- Shows the project details (overview, technology stack)
 - Login/Registration buttons
 
 ![alt text](Figure-Images/Figure3-2.jpg)
 
 
 Register
-user fills out form, checks for form validation 
+user fills out form, checks for form validation
 checks database if username exists already, show the error
 if successful, show success message and redirect to login
 
@@ -165,19 +170,19 @@ if successful, show success message and redirect to login
 
 Login
 two cases
-user registers, redirected to the login with the message 
+user registers, redirected to the login with the message
 normal login page from clicking login in the navigation bar or index page
-invalid credentials -> JavaScript popup telling the user 
+invalid credentials -> JavaScript popup telling the user
 
 ![alt text](Figure-Images/Figure3-6.jpg)
 
 ![alt text](Figure-Images/Figure3-7.jpg)
 
 Portal
-Includes new navigation bar for a logged in user 
-Welcome message 
+Includes new navigation bar for a logged in user
+Welcome message
 view details -> shows image information (coordinates, item name, score)
-view images -> shows images 
+view images -> shows images
 
 ![alt text](Figure-Images/Figure3-8.jpg)
 
@@ -205,3 +210,8 @@ change password
 ![alt text](Figure-Images/Figure3-13.jpg)
 
 successfully change password
+
+## How to config
+In connect.php, change the values of server, database, user, and password to make it work with your database
+The code accesses the database by using pdo in PHP since we used the MSSQL server.
+This implementation ran the code on the local php server on your computer
