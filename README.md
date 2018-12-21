@@ -29,7 +29,7 @@ One of the reasons for using Azure over Amazon’s AWS is that Microsoft has a v
 ### Steps to deploy Web Application
 1.    Now that you know how CNTK and Faster-RCNN work now we can get into the Web
 Application. To start you’ll need to create an Azure subscription at
-(https://azure.microsoft.com/en-us/free/). If you’re a student, then you’ll get $200 worth of credits which will be more than enough to pay for the base service.  First you should download the content from the repository () and unzip to some folder on your computer.
+(https://azure.microsoft.com/en-us/free/). If you’re a student, then you’ll get $200 worth of credits which will be more than enough to pay for the base service.  First you should download the content from the repository () and unzip to some folder on your computer. For this you'll only need the files and folders from the "Back-End" folder. 
 
 2.    Step 2 requires you to set up Python, it’s environment and the dependencies by CNTK on your local Windows machine. Luckily Microsoft provides us with the following tutorial
 (https://docs.microsoft.com/en-us/cognitive-toolkit/setup-windows-binary-script)
